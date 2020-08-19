@@ -5,29 +5,147 @@
             BrainTease
         </title>
         <link href="index.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;800&family=Catamaran:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="quizContainer">
-            <div class="questionsContainer">
-                <h3>
-                    Q
-                </h3>
-            </div>
-            <div class="questionsContainer">
-                <h3>
-                    Q
-                </h3>
-            </div>
-            <div class="questionsContainer">
-                <h3>
-                    Q
-                </h3>
-            </div>
-            <div class="questionsContainer">
-                <h3>
-                    Q
-                </h3>
-            </div>
+        <div class="results">
+            <h1>
+                How good is your English?
+            </h1>
+            <h3>
+
+            </h3>
         </div>
+        <div class="quizContainer">
+                <div class="questions">
+                    <div class="questionsContainer">
+                        <h3>
+                            Which is the shortest complete sentence in the English language consiting of only one word?
+                        </h3>
+                        <input type="text" name="q1" placeholder="Type your answer here"/>
+                    </div>
+                    <div class="questionsContainer">
+                        <h3>
+                            Which English word has maximum number of definitions?
+                        </h3>
+                        <input type="text" name="q2" placeholder="Type your answer here"/>
+                    </div>
+                    <div class="questionsContainer">
+                        <h3>
+                            "The quick brown fox jumps over the lazy dog" <br/>
+                            The above sentence contains all the alphabets of the English language. What are such sentences called?
+                        </h3>
+                        <div>
+                            <label>
+                                <input type="radio" name="q3" value="anagram"/>
+                                Anagram
+                            </label> <br/>
+                            <label>
+                                <input type="radio" name="q3" value="palindrome"/>
+                                Palindrome
+                            </label> <br/>
+                            <label>
+                                <input type="radio" name="q3" value="pangram"/>
+                                Pangram
+                            </label> <br/>
+                            <label>
+                                <input type="radio" name="q3" value="onomatopoeia"/>
+                                Onomatopoeia 
+                            </label> <br/>
+                        </div>
+                    </div>
+                    <div class="questionsContainer">
+                        <h3>
+                            Which is the longest word in English with all characters in alphabetical order?
+                        </h3>
+                        <input type="text" name="q4" placeholder="Type your answer here"/>
+                    </div>
+                    <div>
+                        <button id="submitButton">
+                            Check your answers
+                        </button>
+                    </div>
+                </div>
+        </div>
+        <script>
+            var score = 0;
+            var submit = document.getElementById("submitButton");
+            submit.addEventListener("click", () => {
+                var inputs = document.getElementsByTagName("input");
+                var qBoxes = document.getElementsByClassName("questionsContainer");
+                score = 0;
+                for(var i =0;i<qBoxes.length;i++) {
+                    switch(i) {
+                        case 0: 
+                            if(inputs["q"+(i+1)].value.toLowerCase() === "go") {
+                                qBoxes[0].style.border = "10px solid green";
+                                score +=1;
+                            } else {
+                                qBoxes[0].style.border = "10px solid red";
+                            }
+                            break;
+                        case 1: 
+                            if(inputs["q"+(i+1)].value.toLowerCase() === "set") {
+                                qBoxes[1].style.border = "10px solid green";
+                                score +=1;
+                            } else {
+                                qBoxes[1].style.border = "10px solid red";
+                            }
+                            break;
+                        case 2: 
+                            var isWrong = false;
+                            for(var j=0;j<=3;j++) {
+                                if((j==2 && inputs[i+j].checked===false) || (j!=2 && inputs[i+j].checked)) {
+                                    isWrong = true;
+                                } 
+                            }
+                            if(!isWrong) {
+                                qBoxes[2].style.border = "10px solid green";
+                                score +=1;
+                            } else {
+                                qBoxes[2].style.border = "10px solid red";
+                            }
+                            break;
+                        case 3: 
+                            if(inputs["q"+(i+1)].value.toLowerCase() === "almost") {
+                                qBoxes[3].style.border = "10px solid green";
+                                score +=1;
+                            } else {
+                                qBoxes[3].style.border = "10px solid red";
+                            }
+                            break;
+                        default: 
+                            console.log("Answer for Q."+i+" is unavailable.")
+                    }
+                }
+                var result = document.querySelector(".results h3");
+                var resultMess = "";
+                switch(score) {
+                    case 0:
+                        resultMess = "0/4. That's terrible. Brush up your English!\nHere is somewhere you can start from: "+"www.dictionary.com";
+                        break;
+                    case 1:
+                        resultMess = "1/4. Meh.";
+                        break;
+                    case 2:
+                        resultMess = "2/4. That's average.";
+                        break;
+                    case 3:
+                        resultMess = "3/4. That's good.";
+                        break;
+                    case 4:
+                        resultMess = "4/4. That's amazing. How about you ask the questions next time?";
+                        break;
+                    default:
+                        resultMess = "Better Luck next time!"
+                }
+                result.innerText = resultMess;
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            })
+        </script>
     </body>
 </html>
